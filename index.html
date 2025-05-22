@@ -1,0 +1,1823 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>АвтоСистемс - Комплексные решения автоматизации</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: { primary: "#0056b3", secondary: "#ff7b00" },
+            borderRadius: {
+              none: "0px",
+              sm: "4px",
+              DEFAULT: "8px",
+              md: "12px",
+              lg: "16px",
+              xl: "20px",
+              "2xl": "24px",
+              "3xl": "32px",
+              full: "9999px",
+              button: "8px",
+            },
+          },
+        },
+      };
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/echarts/5.5.0/echarts.min.js"></script>
+    <style>
+      :where([class^="ri-"])::before {
+        content: "\f3c2";
+      }
+      body {
+        font-family: "Montserrat", sans-serif;
+      }
+      .hero-section {
+        background-position: center;
+        background-size: cover;
+        position: relative;
+      }
+      .hero-section::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.95) 0%,
+          rgba(255, 255, 255, 0.8) 50%,
+          rgba(255, 255, 255, 0) 100%
+        );
+        z-index: 1;
+      }
+      .hero-content {
+        position: relative;
+        z-index: 2;
+      }
+      .service-card {
+        transition: all 0.3s ease;
+      }
+      .service-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 86, 179, 0.1);
+      }
+      .custom-checkbox {
+        position: relative;
+        padding-left: 30px;
+        cursor: pointer;
+        user-select: none;
+      }
+      .custom-checkbox input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+      }
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 20px;
+        width: 20px;
+        background-color: #fff;
+        border: 2px solid #ddd;
+        border-radius: 4px;
+      }
+      .custom-checkbox:hover input ~ .checkmark {
+        border-color: #0056b3;
+      }
+      .custom-checkbox input:checked ~ .checkmark {
+        background-color: #0056b3;
+        border-color: #0056b3;
+      }
+      .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+      .custom-checkbox input:checked ~ .checkmark:after {
+        display: block;
+      }
+      .custom-checkbox .checkmark:after {
+        left: 6px;
+        top: 2px;
+        width: 5px;
+        height: 10px;
+        border: solid white;
+        border-width: 0 2px 2px 0;
+        transform: rotate(45deg);
+      }
+      .custom-switch {
+        position: relative;
+        display: inline-block;
+        width: 50px;
+        height: 24px;
+      }
+      .custom-switch input {
+        opacity: 0;
+        width: 0;
+        height: 0;
+      }
+      .switch-slider {
+        position: absolute;
+        cursor: pointer;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background-color: #ccc;
+        transition: 0.4s;
+        border-radius: 24px;
+      }
+      .switch-slider:before {
+        position: absolute;
+        content: "";
+        height: 18px;
+        width: 18px;
+        left: 3px;
+        bottom: 3px;
+        background-color: white;
+        transition: 0.4s;
+        border-radius: 50%;
+      }
+      input:checked + .switch-slider {
+        background-color: #0056b3;
+      }
+      input:checked + .switch-slider:before {
+        transform: translateX(26px);
+      }
+      .custom-range {
+        -webkit-appearance: none;
+        width: 100%;
+        height: 8px;
+        border-radius: 5px;
+        background: #f0f0f0;
+        outline: none;
+      }
+      .custom-range::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #0056b3;
+        cursor: pointer;
+      }
+      .custom-range::-moz-range-thumb {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        background: #0056b3;
+        cursor: pointer;
+        border: none;
+      }
+      .tab-button {
+        transition: all 0.3s ease;
+      }
+      .tab-button.active {
+        background-color: #0056b3;
+        color: white;
+      }
+      .counter-input {
+        width: 40px;
+        text-align: center;
+        border: none;
+        background: transparent;
+      }
+      .counter-btn {
+        width: 28px;
+        height: 28px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 4px;
+        background-color: #f0f0f0;
+        cursor: pointer;
+      }
+      .counter-btn:hover {
+        background-color: #e0e0e0;
+      }
+      .slide-enter {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      .slide-enter-active {
+        opacity: 1;
+        transform: translateY(0);
+        transition: opacity 0.3s, transform 0.3s;
+      }
+      .slide-exit {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .slide-exit-active {
+        opacity: 0;
+        transform: translateY(20px);
+        transition: opacity 0.3s, transform 0.3s;
+      }
+      input[type="number"]::-webkit-inner-spin-button,
+      input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+      }
+      input[type="number"] {
+        -moz-appearance: textfield;
+      }
+    </style>
+  </head>
+  <body class="bg-gray-50">
+    <!-- Header -->
+    <header class="bg-white shadow-sm sticky top-0 z-50">
+      <div class="container mx-auto px-4 py-3">
+        <div class="flex justify-between items-center">
+          <a href="index.html" class="flex items-center space-x-2">
+            <div
+              class="w-10 h-10 bg-primary rounded-full flex items-center justify-center"
+            >
+              <span class="text-white font-['Pacifico'] text-xl">AS</span>
+            </div>
+            <span class="font-['Pacifico'] text-2xl text-primary"
+              >АвтоСистемс</span
+            >
+          </a>
+          <nav class="hidden md:flex space-x-8">
+            <a
+              href="index.html"
+              class="text-gray-800 font-medium hover:text-primary transition-colors"
+              >Главная</a
+            >
+            <a
+              href="catalog.html"
+              class="text-gray-800 font-medium hover:text-primary transition-colors"
+              >Услуги</a
+            >
+            <a
+              href="#"
+              class="text-gray-800 font-medium hover:text-primary transition-colors"
+              >О компании</a
+            >
+            <a
+              href="#"
+              class="text-gray-800 font-medium hover:text-primary transition-colors"
+              >Проекты</a
+            >
+            <a
+              href="#"
+              class="text-gray-800 font-medium hover:text-primary transition-colors"
+              >Контакты</a
+            >
+          </nav>
+          <div class="flex items-center space-x-6">
+            <a
+              href="account.html"
+              class="text-gray-700 hover:text-primary transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center">
+                <i class="ri-user-3-line text-xl"></i>
+              </div>
+            </a>
+            <div class="relative hidden md:block">
+              <input
+                type="text"
+                placeholder="Поиск..."
+                class="pl-10 pr-4 py-2 rounded-full text-sm border border-gray-200 focus:outline-none focus:border-primary"
+              />
+              <div
+                class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400"
+              >
+                <i class="ri-search-line"></i>
+              </div>
+            </div>
+            <a
+              href="cart.html"
+              class="relative p-2 text-gray-700 hover:text-primary transition-colors"
+            >
+              <div class="w-6 h-6 flex items-center justify-center">
+                <i class="ri-shopping-cart-2-line text-xl"></i>
+              </div>
+              <span
+                id="cart-count"
+                class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center"
+                >0</span
+              >
+            </a>
+            <button class="md:hidden p-2 text-gray-700" id="mobile-menu-button">
+              <div class="w-6 h-6 flex items-center justify-center">
+                <i class="ri-menu-line text-xl"></i>
+              </div>
+            </button>
+          </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="md:hidden hidden py-4 border-t mt-3">
+          <div class="flex flex-col space-y-3">
+            <a
+              href="index.html"
+              class="text-gray-800 font-medium hover:text-primary transition-colors"
+              >Главная</a
+            >
+            <a
+              href="catalog.html"
+              class="text-gray-800 font-medium hover:text-primary transition-colors"
+              >Услуги</a
+            >
+            <a
+              href="#"
+              class="text-gray-800 font-medium hover:text-primary transition-colors"
+              >О компании</a
+            >
+            <a
+              href="#"
+              class="text-gray-800 font-medium hover:text-primary transition-colors"
+              >Проекты</a
+            >
+            <a
+              href="#"
+              class="text-gray-800 font-medium hover:text-primary transition-colors"
+              >Контакты</a
+            >
+            <a
+              href="account.html"
+              class="text-gray-800 font-medium hover:text-primary transition-colors"
+              >Личный кабинет</a
+            >
+          </div>
+          <div class="mt-4 relative">
+            <input
+              type="text"
+              placeholder="Поиск..."
+              class="w-full pl-10 pr-4 py-2 rounded-full text-sm border border-gray-200 focus:outline-none focus:border-primary"
+            />
+            <div
+              class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400"
+            >
+              <i class="ri-search-line"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+    <!-- Hero Section -->
+    <section
+      class="hero-section"
+      style="
+        background-image: url('https://readdy.ai/api/search-image?query=modern%20technology%20automation%20factory%20with%20robotic%20arms%20and%20conveyor%20belts%2C%20industrial%20automation%20systems%2C%20blue%20tinted%2C%20high-tech%20environment%2C%20clean%20and%20futuristic%20manufacturing%20floor%20with%20computer%20control%20panels&width=1600&height=800&seq=1&orientation=landscape');
+      "
+    >
+      <div class="container mx-auto px-4 py-20 md:py-32">
+        <div class="hero-content flex flex-col md:flex-row items-center">
+          <div class="md:w-1/2 mb-10 md:mb-0">
+            <h1 class="text-3xl md:text-5xl font-bold text-gray-900 mb-6">
+              Комплексные решения автоматизации для вашего бизнеса
+            </h1>
+            <p class="text-lg text-gray-700 mb-8">
+              Мы проектируем и внедряем современные системы автоматизации,
+              которые повышают эффективность производства и снижают операционные
+              расходы.
+            </p>
+            <div
+              class="flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4"
+            >
+              <a
+                href="catalog.html"
+                class="bg-primary text-white px-6 py-3 rounded-button font-medium hover:bg-blue-700 transition-colors text-center !rounded-button whitespace-nowrap cursor-pointer"
+                >Наши услуги</a
+              >
+              <a
+                href="#calculator"
+                class="border border-primary text-primary px-6 py-3 rounded-button font-medium hover:bg-primary hover:text-white transition-colors text-center !rounded-button whitespace-nowrap cursor-pointer"
+                >Рассчитать стоимость</a
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Features Section -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            Почему выбирают нас
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Мы предлагаем полный спектр услуг по автоматизации бизнес-процессов,
+            от проектирования до внедрения и сопровождения.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div
+            class="bg-gray-50 rounded-lg p-6 text-center transition-all hover:shadow-lg"
+          >
+            <div
+              class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <div
+                class="w-8 h-8 flex items-center justify-center text-primary"
+              >
+                <i class="ri-settings-3-line text-2xl"></i>
+              </div>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Современные технологии</h3>
+            <p class="text-gray-600">
+              Используем передовые технологии и инновационные решения для
+              создания эффективных систем автоматизации.
+            </p>
+          </div>
+          <div
+            class="bg-gray-50 rounded-lg p-6 text-center transition-all hover:shadow-lg"
+          >
+            <div
+              class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <div
+                class="w-8 h-8 flex items-center justify-center text-primary"
+              >
+                <i class="ri-team-line text-2xl"></i>
+              </div>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Опытные специалисты</h3>
+            <p class="text-gray-600">
+              Наша команда состоит из сертифицированных экспертов с многолетним
+              опытом работы в сфере автоматизации.
+            </p>
+          </div>
+          <div
+            class="bg-gray-50 rounded-lg p-6 text-center transition-all hover:shadow-lg"
+          >
+            <div
+              class="w-16 h-16 bg-blue-50 rounded-full flex items-center justify-center mx-auto mb-4"
+            >
+              <div
+                class="w-8 h-8 flex items-center justify-center text-primary"
+              >
+                <i class="ri-customer-service-2-line text-2xl"></i>
+              </div>
+            </div>
+            <h3 class="text-xl font-semibold mb-3">Поддержка 24/7</h3>
+            <p class="text-gray-600">
+              Обеспечиваем круглосуточную техническую поддержку и сопровождение
+              внедренных систем.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Services Section -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Наши услуги</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Мы предлагаем широкий спектр услуг по автоматизации различных
+            бизнес-процессов и производственных систем.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div
+            class="service-card bg-white rounded-lg overflow-hidden shadow-sm"
+          >
+            <div class="h-48 overflow-hidden">
+              <img
+                src="https://readdy.ai/api/search-image?query=industrial%20control%20panel%20with%20touch%20screen%20interface%2C%20modern%20factory%20automation%20system%2C%20blue%20and%20white%20color%20scheme%2C%20clean%20industrial%20environment&width=600&height=400&seq=2&orientation=landscape"
+                alt="Автоматизация производства"
+                class="w-full h-full object-cover object-top"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">
+                Автоматизация производства
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Внедрение современных систем управления производственными
+                процессами, оптимизация работы оборудования.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-primary font-semibold">от 150 000 ₽</span>
+                <a
+                  href="service.html"
+                  class="text-primary hover:text-blue-700 font-medium flex items-center cursor-pointer"
+                >
+                  Подробнее
+                  <div class="w-5 h-5 flex items-center justify-center ml-1">
+                    <i class="ri-arrow-right-line"></i>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="service-card bg-white rounded-lg overflow-hidden shadow-sm"
+          >
+            <div class="h-48 overflow-hidden">
+              <img
+                src="https://readdy.ai/api/search-image?query=smart%20building%20management%20system%2C%20digital%20control%20panel%20for%20building%20automation%2C%20modern%20office%20interior%20with%20automation%20technology%2C%20clean%20and%20minimalist%20design&width=600&height=400&seq=3&orientation=landscape"
+                alt="Автоматизация зданий"
+                class="w-full h-full object-cover object-top"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">Автоматизация зданий</h3>
+              <p class="text-gray-600 mb-4">
+                Создание интеллектуальных систем управления инженерными
+                системами зданий и сооружений.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-primary font-semibold">от 120 000 ₽</span>
+                <a
+                  href="service.html"
+                  class="text-primary hover:text-blue-700 font-medium flex items-center cursor-pointer"
+                >
+                  Подробнее
+                  <div class="w-5 h-5 flex items-center justify-center ml-1">
+                    <i class="ri-arrow-right-line"></i>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="service-card bg-white rounded-lg overflow-hidden shadow-sm"
+          >
+            <div class="h-48 overflow-hidden">
+              <img
+                src="https://readdy.ai/api/search-image?query=business%20process%20automation%20software%20interface%2C%20digital%20workflow%20management%20system%2C%20modern%20office%20with%20computer%20screens%20showing%20process%20diagrams%2C%20professional%20business%20environment&width=600&height=400&seq=4&orientation=landscape"
+                alt="Автоматизация бизнес-процессов"
+                class="w-full h-full object-cover object-top"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">
+                Автоматизация бизнес-процессов
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Разработка и внедрение систем электронного документооборота, CRM
+                и ERP-систем.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-primary font-semibold">от 90 000 ₽</span>
+                <a
+                  href="service.html"
+                  class="text-primary hover:text-blue-700 font-medium flex items-center cursor-pointer"
+                >
+                  Подробнее
+                  <div class="w-5 h-5 flex items-center justify-center ml-1">
+                    <i class="ri-arrow-right-line"></i>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="service-card bg-white rounded-lg overflow-hidden shadow-sm"
+          >
+            <div class="h-48 overflow-hidden">
+              <img
+                src="https://readdy.ai/api/search-image?query=industrial%20IoT%20sensors%20and%20devices%20connected%20to%20control%20system%2C%20smart%20factory%20with%20wireless%20technology%2C%20modern%20industrial%20internet%20of%20things%20implementation%2C%20technical%20environment&width=600&height=400&seq=5&orientation=landscape"
+                alt="Промышленный IoT"
+                class="w-full h-full object-cover object-top"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">Промышленный IoT</h3>
+              <p class="text-gray-600 mb-4">
+                Внедрение систем промышленного интернета вещей для мониторинга и
+                управления оборудованием.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-primary font-semibold">от 180 000 ₽</span>
+                <a
+                  href="service.html"
+                  class="text-primary hover:text-blue-700 font-medium flex items-center cursor-pointer"
+                >
+                  Подробнее
+                  <div class="w-5 h-5 flex items-center justify-center ml-1">
+                    <i class="ri-arrow-right-line"></i>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="service-card bg-white rounded-lg overflow-hidden shadow-sm"
+          >
+            <div class="h-48 overflow-hidden">
+              <img
+                src="https://readdy.ai/api/search-image?query=robotic%20process%20automation%2C%20software%20bots%20working%20with%20digital%20interfaces%2C%20modern%20office%20with%20computer%20screens%20showing%20automation%20workflows%2C%20professional%20business%20environment&width=600&height=400&seq=6&orientation=landscape"
+                alt="Роботизация процессов"
+                class="w-full h-full object-cover object-top"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">Роботизация процессов</h3>
+              <p class="text-gray-600 mb-4">
+                Внедрение программных роботов (RPA) для автоматизации рутинных
+                операций и бизнес-процессов.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-primary font-semibold">от 100 000 ₽</span>
+                <a
+                  href="service.html"
+                  class="text-primary hover:text-blue-700 font-medium flex items-center cursor-pointer"
+                >
+                  Подробнее
+                  <div class="w-5 h-5 flex items-center justify-center ml-1">
+                    <i class="ri-arrow-right-line"></i>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div
+            class="service-card bg-white rounded-lg overflow-hidden shadow-sm"
+          >
+            <div class="h-48 overflow-hidden">
+              <img
+                src="https://readdy.ai/api/search-image?query=custom%20software%20development%20for%20automation%20systems%2C%20programmers%20working%20on%20industrial%20control%20software%2C%20modern%20office%20with%20multiple%20computer%20screens%20showing%20code%2C%20professional%20IT%20environment&width=600&height=400&seq=7&orientation=landscape"
+                alt="Разработка ПО"
+                class="w-full h-full object-cover object-top"
+              />
+            </div>
+            <div class="p-6">
+              <h3 class="text-xl font-semibold mb-2">
+                Разработка ПО для автоматизации
+              </h3>
+              <p class="text-gray-600 mb-4">
+                Создание заказного программного обеспечения для управления
+                технологическими процессами.
+              </p>
+              <div class="flex justify-between items-center">
+                <span class="text-primary font-semibold">от 200 000 ₽</span>
+                <a
+                  href="service.html"
+                  class="text-primary hover:text-blue-700 font-medium flex items-center cursor-pointer"
+                >
+                  Подробнее
+                  <div class="w-5 h-5 flex items-center justify-center ml-1">
+                    <i class="ri-arrow-right-line"></i>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="text-center mt-10">
+          <a
+            href="catalog.html"
+            class="bg-primary text-white px-8 py-3 rounded-button font-medium hover:bg-blue-700 transition-colors inline-block !rounded-button whitespace-nowrap cursor-pointer"
+            >Все услуги</a
+          >
+        </div>
+      </div>
+    </section>
+    <!-- Calculator Section -->
+    <section id="calculator" class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">
+            Калькулятор стоимости
+          </h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Рассчитайте предварительную стоимость услуг автоматизации для вашего
+            бизнеса.
+          </p>
+        </div>
+        <div
+          class="bg-gray-50 rounded-lg p-6 md:p-8 max-w-4xl mx-auto shadow-sm"
+        >
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2"
+                  >Тип автоматизации</label
+                >
+                <div class="space-y-3">
+                  <label class="custom-checkbox block">
+                    <input
+                      type="radio"
+                      name="automation-type"
+                      value="production"
+                      checked
+                    />
+                    <span class="checkmark"></span>
+                    Автоматизация производства
+                  </label>
+                  <label class="custom-checkbox block">
+                    <input
+                      type="radio"
+                      name="automation-type"
+                      value="building"
+                    />
+                    <span class="checkmark"></span>
+                    Автоматизация зданий
+                  </label>
+                  <label class="custom-checkbox block">
+                    <input
+                      type="radio"
+                      name="automation-type"
+                      value="business"
+                    />
+                    <span class="checkmark"></span>
+                    Автоматизация бизнес-процессов
+                  </label>
+                  <label class="custom-checkbox block">
+                    <input type="radio" name="automation-type" value="iot" />
+                    <span class="checkmark"></span>
+                    Промышленный IoT
+                  </label>
+                </div>
+              </div>
+              <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2"
+                  >Масштаб проекта</label
+                >
+                <select
+                  id="project-scale"
+                  class="w-full p-3 border border-gray-200 rounded text-gray-700 focus:outline-none focus:border-primary pr-8"
+                >
+                  <option value="small">Малый (до 50 рабочих мест)</option>
+                  <option value="medium">Средний (50-200 рабочих мест)</option>
+                  <option value="large">
+                    Крупный (более 200 рабочих мест)
+                  </option>
+                </select>
+              </div>
+              <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2"
+                  >Дополнительные услуги</label
+                >
+                <div class="space-y-3">
+                  <label class="custom-checkbox block">
+                    <input
+                      type="checkbox"
+                      name="additional-services"
+                      value="consulting"
+                      class="additional-service"
+                    />
+                    <span class="checkmark"></span>
+                    Консультация и аудит (+20 000 ₽)
+                  </label>
+                  <label class="custom-checkbox block">
+                    <input
+                      type="checkbox"
+                      name="additional-services"
+                      value="training"
+                      class="additional-service"
+                    />
+                    <span class="checkmark"></span>
+                    Обучение персонала (+30 000 ₽)
+                  </label>
+                  <label class="custom-checkbox block">
+                    <input
+                      type="checkbox"
+                      name="additional-services"
+                      value="support"
+                      class="additional-service"
+                    />
+                    <span class="checkmark"></span>
+                    Расширенная техподдержка (+50 000 ₽)
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div>
+              <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2"
+                  >Срок реализации (месяцев)</label
+                >
+                <div class="flex items-center justify-between">
+                  <span class="text-gray-600">1</span>
+                  <input
+                    type="range"
+                    id="implementation-time"
+                    min="1"
+                    max="12"
+                    value="3"
+                    class="custom-range mx-3 flex-grow"
+                  />
+                  <span class="text-gray-600" id="time-value">3</span>
+                </div>
+              </div>
+              <div class="mb-6">
+                <label class="block text-gray-700 font-medium mb-2"
+                  >Интеграция с существующими системами</label
+                >
+                <div class="flex items-center">
+                  <label class="custom-switch mr-3">
+                    <input type="checkbox" id="integration-switch" />
+                    <span class="switch-slider"></span>
+                  </label>
+                  <span class="text-gray-700" id="integration-status">Нет</span>
+                </div>
+              </div>
+              <div class="bg-white p-6 rounded-lg border border-gray-200 mt-8">
+                <h4 class="text-lg font-semibold mb-4">Расчет стоимости</h4>
+                <div class="space-y-3">
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">Базовая стоимость:</span>
+                    <span class="font-medium" id="base-cost">150 000 ₽</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">Дополнительные услуги:</span>
+                    <span class="font-medium" id="additional-cost">0 ₽</span>
+                  </div>
+                  <div class="flex justify-between">
+                    <span class="text-gray-600">Интеграция:</span>
+                    <span class="font-medium" id="integration-cost">0 ₽</span>
+                  </div>
+                  <div class="border-t pt-3 mt-3">
+                    <div class="flex justify-between">
+                      <span class="text-gray-800 font-semibold"
+                        >Итоговая стоимость:</span
+                      >
+                      <span
+                        class="text-primary font-bold text-xl"
+                        id="total-cost"
+                        >150 000 ₽</span
+                      >
+                    </div>
+                  </div>
+                </div>
+                <button
+                  id="add-to-cart-calculator"
+                  class="w-full bg-primary text-white mt-6 py-3 rounded-button font-medium hover:bg-blue-700 transition-colors !rounded-button whitespace-nowrap cursor-pointer"
+                >
+                  Добавить в корзину
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Statistics Section -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Наши достижения</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            За годы работы мы успешно реализовали множество проектов по
+            автоматизации для компаний из различных отраслей.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h3 class="text-xl font-semibold mb-4">Эффективность внедрения</h3>
+            <div id="efficiency-chart" class="h-80"></div>
+          </div>
+          <div class="bg-white p-6 rounded-lg shadow-sm">
+            <h3 class="text-xl font-semibold mb-4">Отрасли клиентов</h3>
+            <div id="industries-chart" class="h-80"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Testimonials Section -->
+    <section class="py-16 bg-white">
+      <div class="container mx-auto px-4">
+        <div class="text-center mb-12">
+          <h2 class="text-3xl font-bold text-gray-900 mb-4">Отзывы клиентов</h2>
+          <p class="text-gray-600 max-w-2xl mx-auto">
+            Узнайте, что говорят о нас клиенты, которые уже оценили преимущества
+            наших решений по автоматизации.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-gray-50 p-6 rounded-lg">
+            <div class="flex items-center text-yellow-400 mb-4">
+              <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-star-fill"></i>
+              </div>
+              <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-star-fill"></i>
+              </div>
+              <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-star-fill"></i>
+              </div>
+              <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-star-fill"></i>
+              </div>
+              <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-star-fill"></i>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-6">
+              "Благодаря внедрению системы автоматизации производства от
+              АвтоСистемс, мы смогли увеличить производительность на 30% и
+              значительно сократить количество брака. Отличное решение для
+              современного производства!"
+            </p>
+            <div class="flex items-center">
+              <div
+                class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4"
+              >
+                <div
+                  class="w-6 h-6 flex items-center justify-center text-gray-500"
+                >
+                  <i class="ri-user-line"></i>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-semibold">Алексей Петров</h4>
+                <p class="text-sm text-gray-500">
+                  Технический директор, ООО "ТехноПром"
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 p-6 rounded-lg">
+            <div class="flex items-center text-yellow-400 mb-4">
+              <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-star-fill"></i>
+              </div>
+              <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-star-fill"></i>
+              </div>
+              <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-star-fill"></i>
+              </div>
+              <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-star-fill"></i>
+              </div>
+              <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-star-half-fill"></i>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-6">
+              "Внедрение системы "умный офис" полностью изменило работу нашей
+              компании. Экономия на коммунальных платежах составила около 25%, а
+              комфорт сотрудников значительно повысился. Рекомендую!"
+            </p>
+            <div class="flex items-center">
+              <div
+                class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4"
+              >
+                <div
+                  class="w-6 h-6 flex items-center justify-center text-gray-500"
+                >
+                  <i class="ri-user-line"></i>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-semibold">Елена Смирнова</h4>
+                <p class="text-sm text-gray-500">
+                  Директор по развитию, "Инновация Групп"
+                </p>
+              </div>
+            </div>
+          </div>
+          <div class="bg-gray-50 p-6 rounded-lg">
+            <div class="flex items-center text-yellow-400 mb-4">
+              <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-star-fill"></i>
+              </div>
+              <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-star-fill"></i>
+              </div>
+              <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-star-fill"></i>
+              </div>
+              <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-star-fill"></i>
+              </div>
+              <div class="w-5 h-5 flex items-center justify-center">
+                <i class="ri-star-line"></i>
+              </div>
+            </div>
+            <p class="text-gray-600 mb-6">
+              "Автоматизация бизнес-процессов от АвтоСистемс позволила нам
+              сократить время обработки заказов на 40% и практически исключить
+              ошибки. Профессиональный подход и качественная реализация."
+            </p>
+            <div class="flex items-center">
+              <div
+                class="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center mr-4"
+              >
+                <div
+                  class="w-6 h-6 flex items-center justify-center text-gray-500"
+                >
+                  <i class="ri-user-line"></i>
+                </div>
+              </div>
+              <div>
+                <h4 class="font-semibold">Дмитрий Иванов</h4>
+                <p class="text-sm text-gray-500">
+                  Руководитель ИТ-отдела, "Логистик Плюс"
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Contact Section -->
+    <section class="py-16 bg-gray-50">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+          <div>
+            <h2 class="text-3xl font-bold text-gray-900 mb-6">
+              Свяжитесь с нами
+            </h2>
+            <p class="text-gray-600 mb-8">
+              Готовы обсудить ваш проект автоматизации? Оставьте заявку, и наши
+              специалисты свяжутся с вами в ближайшее время.
+            </p>
+            <form class="space-y-6">
+              <div>
+                <label class="block text-gray-700 font-medium mb-2"
+                  >Ваше имя</label
+                >
+                <input
+                  type="text"
+                  class="w-full p-3 border border-gray-200 rounded focus:outline-none focus:border-primary"
+                  placeholder="Введите ваше имя"
+                />
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2"
+                  >Электронная почта</label
+                >
+                <input
+                  type="email"
+                  class="w-full p-3 border border-gray-200 rounded focus:outline-none focus:border-primary"
+                  placeholder="Введите email"
+                />
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2"
+                  >Телефон</label
+                >
+                <input
+                  type="tel"
+                  class="w-full p-3 border border-gray-200 rounded focus:outline-none focus:border-primary"
+                  placeholder="+7 (___) ___-__-__"
+                />
+              </div>
+              <div>
+                <label class="block text-gray-700 font-medium mb-2"
+                  >Сообщение</label
+                >
+                <textarea
+                  class="w-full p-3 border border-gray-200 rounded focus:outline-none focus:border-primary h-32"
+                  placeholder="Опишите ваш проект или задайте вопрос"
+                ></textarea>
+              </div>
+              <div>
+                <button
+                  type="submit"
+                  class="bg-primary text-white px-6 py-3 rounded-button font-medium hover:bg-blue-700 transition-colors !rounded-button whitespace-nowrap cursor-pointer"
+                >
+                  Отправить заявку
+                </button>
+              </div>
+            </form>
+          </div>
+          <div>
+            <h3 class="text-xl font-semibold mb-6">Наши контакты</h3>
+            <div class="space-y-6">
+              <div class="flex items-start">
+                <div
+                  class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0"
+                >
+                  <div
+                    class="w-5 h-5 flex items-center justify-center text-primary"
+                  >
+                    <i class="ri-map-pin-line"></i>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-medium mb-1">Адрес</h4>
+                  <p class="text-gray-600">
+                    Москва, ул. Тверская, д. 15, офис 204
+                  </p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div
+                  class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0"
+                >
+                  <div
+                    class="w-5 h-5 flex items-center justify-center text-primary"
+                  >
+                    <i class="ri-phone-line"></i>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-medium mb-1">Телефон</h4>
+                  <p class="text-gray-600">+7 (495) 123-45-67</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div
+                  class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0"
+                >
+                  <div
+                    class="w-5 h-5 flex items-center justify-center text-primary"
+                  >
+                    <i class="ri-mail-line"></i>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-medium mb-1">Email</h4>
+                  <p class="text-gray-600">info@autosystems.ru</p>
+                </div>
+              </div>
+              <div class="flex items-start">
+                <div
+                  class="w-10 h-10 bg-blue-50 rounded-full flex items-center justify-center mr-4 mt-1 flex-shrink-0"
+                >
+                  <div
+                    class="w-5 h-5 flex items-center justify-center text-primary"
+                  >
+                    <i class="ri-time-line"></i>
+                  </div>
+                </div>
+                <div>
+                  <h4 class="font-medium mb-1">Режим работы</h4>
+                  <p class="text-gray-600">
+                    Пн-Пт: 9:00 - 18:00<br />Сб-Вс: выходные
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="mt-8 rounded-lg overflow-hidden h-64 bg-gray-200">
+              <img
+                src="https://public.readdy.ai/gen_page/map_placeholder_1280x720.png"
+                alt="Карта"
+                class="w-full h-full object-cover"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+      <div class="container mx-auto px-4">
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+          <div>
+            <a href="index.html" class="flex items-center space-x-2 mb-6">
+              <div
+                class="w-10 h-10 bg-white rounded-full flex items-center justify-center"
+              >
+                <span class="text-primary font-['Pacifico'] text-xl">AS</span>
+              </div>
+              <span class="font-['Pacifico'] text-2xl text-white"
+                >АвтоСистемс</span
+              >
+            </a>
+            <p class="text-gray-400 mb-6">
+              Комплексные решения автоматизации для вашего бизнеса.
+              Инновационные технологии для повышения эффективности.
+            </p>
+            <div class="flex space-x-4">
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors cursor-pointer"
+              >
+                <div class="w-5 h-5 flex items-center justify-center">
+                  <i class="ri-facebook-fill"></i>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors cursor-pointer"
+              >
+                <div class="w-5 h-5 flex items-center justify-center">
+                  <i class="ri-twitter-fill"></i>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors cursor-pointer"
+              >
+                <div class="w-5 h-5 flex items-center justify-center">
+                  <i class="ri-linkedin-fill"></i>
+                </div>
+              </a>
+              <a
+                href="#"
+                class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors cursor-pointer"
+              >
+                <div class="w-5 h-5 flex items-center justify-center">
+                  <i class="ri-instagram-fill"></i>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-6">Услуги</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  >Автоматизация производства</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  >Автоматизация зданий</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  >Автоматизация бизнес-процессов</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  >Промышленный IoT</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  >Роботизация процессов</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  >Разработка ПО</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-6">Компания</h3>
+            <ul class="space-y-3">
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  >О нас</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  >Команда</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  >Проекты</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  >Отзывы</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  >Блог</a
+                >
+              </li>
+              <li>
+                <a
+                  href="#"
+                  class="text-gray-400 hover:text-white transition-colors cursor-pointer"
+                  >Контакты</a
+                >
+              </li>
+            </ul>
+          </div>
+          <div>
+            <h3 class="text-lg font-semibold mb-6">Подписка на новости</h3>
+            <p class="text-gray-400 mb-4">
+              Подпишитесь на нашу рассылку, чтобы получать новости и специальные
+              предложения.
+            </p>
+            <form class="mb-6">
+              <div class="flex">
+                <input
+                  type="email"
+                  placeholder="Ваш email"
+                  class="flex-grow p-3 bg-gray-800 border border-gray-700 rounded-l focus:outline-none focus:border-primary text-white"
+                />
+                <button
+                  type="submit"
+                  class="bg-primary text-white px-4 py-3 rounded-r !rounded-button whitespace-nowrap cursor-pointer"
+                >
+                  Подписаться
+                </button>
+              </div>
+            </form>
+            <h3 class="text-lg font-semibold mb-4">Способы оплаты</h3>
+            <div class="flex space-x-3">
+              <div
+                class="w-10 h-6 bg-gray-800 rounded flex items-center justify-center"
+              >
+                <div
+                  class="w-5 h-5 flex items-center justify-center text-gray-400"
+                >
+                  <i class="ri-visa-fill"></i>
+                </div>
+              </div>
+              <div
+                class="w-10 h-6 bg-gray-800 rounded flex items-center justify-center"
+              >
+                <div
+                  class="w-5 h-5 flex items-center justify-center text-gray-400"
+                >
+                  <i class="ri-mastercard-fill"></i>
+                </div>
+              </div>
+              <div
+                class="w-10 h-6 bg-gray-800 rounded flex items-center justify-center"
+              >
+                <div
+                  class="w-5 h-5 flex items-center justify-center text-gray-400"
+                >
+                  <i class="ri-paypal-fill"></i>
+                </div>
+              </div>
+              <div
+                class="w-10 h-6 bg-gray-800 rounded flex items-center justify-center"
+              >
+                <div
+                  class="w-5 h-5 flex items-center justify-center text-gray-400"
+                >
+                  <i class="ri-alipay-fill"></i>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div
+          class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center"
+        >
+          <p class="text-gray-400 mb-4 md:mb-0">
+            © 2025 АвтоСистемс. Все права защищены.
+          </p>
+          <div class="flex space-x-6">
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors cursor-pointer"
+              >Политика конфиденциальности</a
+            >
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors cursor-pointer"
+              >Условия использования</a
+            >
+            <a
+              href="#"
+              class="text-gray-400 hover:text-white transition-colors cursor-pointer"
+              >Карта сайта</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
+    <!-- Notification Toast -->
+    <div
+      id="notification"
+      class="fixed bottom-4 right-4 bg-white rounded-lg shadow-lg p-4 max-w-xs transform translate-y-20 opacity-0 transition-all duration-300 z-50 hidden"
+    >
+      <div class="flex items-start">
+        <div
+          class="w-6 h-6 flex items-center justify-center text-green-500 mr-3"
+        >
+          <i class="ri-check-line"></i>
+        </div>
+        <div class="flex-grow">
+          <h4 class="font-medium text-gray-900 mb-1" id="notification-title">
+            Успешно
+          </h4>
+          <p class="text-gray-600 text-sm" id="notification-message">
+            Товар добавлен в корзину
+          </p>
+        </div>
+        <button
+          class="text-gray-400 hover:text-gray-600 ml-4 cursor-pointer"
+          id="close-notification"
+        >
+          <div class="w-5 h-5 flex items-center justify-center">
+            <i class="ri-close-line"></i>
+          </div>
+        </button>
+      </div>
+    </div>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById("mobile-menu-button");
+        const mobileMenu = document.getElementById("mobile-menu");
+        mobileMenuButton.addEventListener("click", function () {
+          mobileMenu.classList.toggle("hidden");
+        });
+        // Implementation time range slider
+        const timeRange = document.getElementById("implementation-time");
+        const timeValue = document.getElementById("time-value");
+        timeRange.addEventListener("input", function () {
+          timeValue.textContent = this.value;
+          updateCalculator();
+        });
+        // Integration switch
+        const integrationSwitch = document.getElementById("integration-switch");
+        const integrationStatus = document.getElementById("integration-status");
+        integrationSwitch.addEventListener("change", function () {
+          integrationStatus.textContent = this.checked ? "Да" : "Нет";
+          updateCalculator();
+        });
+        // Additional services checkboxes
+        const additionalServices = document.querySelectorAll(
+          ".additional-service"
+        );
+        additionalServices.forEach((service) => {
+          service.addEventListener("change", updateCalculator);
+        });
+        // Automation type radio buttons
+        const automationTypes = document.querySelectorAll(
+          'input[name="automation-type"]'
+        );
+        automationTypes.forEach((type) => {
+          type.addEventListener("change", updateCalculator);
+        });
+        // Project scale select
+        const projectScale = document.getElementById("project-scale");
+        projectScale.addEventListener("change", updateCalculator);
+        // Calculator function
+        function updateCalculator() {
+          let baseCost = 0;
+          const selectedType = document.querySelector(
+            'input[name="automation-type"]:checked'
+          ).value;
+          switch (selectedType) {
+            case "production":
+              baseCost = 150000;
+              break;
+            case "building":
+              baseCost = 120000;
+              break;
+            case "business":
+              baseCost = 90000;
+              break;
+            case "iot":
+              baseCost = 180000;
+              break;
+          }
+          // Adjust for project scale
+          const scale = projectScale.value;
+          if (scale === "medium") {
+            baseCost *= 1.5;
+          } else if (scale === "large") {
+            baseCost *= 2.5;
+          }
+          // Calculate additional services cost
+          let additionalCost = 0;
+          additionalServices.forEach((service) => {
+            if (service.checked) {
+              switch (service.value) {
+                case "consulting":
+                  additionalCost += 20000;
+                  break;
+                case "training":
+                  additionalCost += 30000;
+                  break;
+                case "support":
+                  additionalCost += 50000;
+                  break;
+              }
+            }
+          });
+          // Calculate integration cost
+          const integrationCost = integrationSwitch.checked ? 40000 : 0;
+          // Update the displayed costs
+          document.getElementById("base-cost").textContent = formatPrice(
+            Math.round(baseCost)
+          );
+          document.getElementById("additional-cost").textContent =
+            formatPrice(additionalCost);
+          document.getElementById("integration-cost").textContent =
+            formatPrice(integrationCost);
+          document.getElementById("total-cost").textContent = formatPrice(
+            Math.round(baseCost) + additionalCost + integrationCost
+          );
+        }
+        // Initialize calculator
+        updateCalculator();
+        // Format price helper function
+        function formatPrice(price) {
+          return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + " ₽";
+        }
+        // Initialize charts
+        const efficiencyChart = echarts.init(
+          document.getElementById("efficiency-chart")
+        );
+        const industriesChart = echarts.init(
+          document.getElementById("industries-chart")
+        );
+        // Efficiency chart options
+        const efficiencyOption = {
+          animation: false,
+          tooltip: {
+            trigger: "axis",
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+            textStyle: {
+              color: "#1f2937",
+            },
+          },
+          legend: {
+            data: ["До автоматизации", "После автоматизации"],
+            textStyle: {
+              color: "#1f2937",
+            },
+          },
+          grid: {
+            top: 60,
+            right: 20,
+            bottom: 40,
+            left: 60,
+          },
+          xAxis: {
+            type: "category",
+            data: [
+              "Производительность",
+              "Время обработки",
+              "Ошибки",
+              "Затраты",
+            ],
+            axisLine: {
+              lineStyle: {
+                color: "#d1d5db",
+              },
+            },
+            axisLabel: {
+              color: "#1f2937",
+            },
+          },
+          yAxis: {
+            type: "value",
+            axisLine: {
+              lineStyle: {
+                color: "#d1d5db",
+              },
+            },
+            axisLabel: {
+              color: "#1f2937",
+              formatter: "{value}%",
+            },
+            splitLine: {
+              lineStyle: {
+                color: "#f3f4f6",
+              },
+            },
+          },
+          series: [
+            {
+              name: "До автоматизации",
+              type: "bar",
+              data: [100, 100, 100, 100],
+              itemStyle: {
+                color: "rgba(252, 141, 98, 1)",
+                borderRadius: 4,
+              },
+            },
+            {
+              name: "После автоматизации",
+              type: "bar",
+              data: [135, 60, 30, 75],
+              itemStyle: {
+                color: "rgba(87, 181, 231, 1)",
+                borderRadius: 4,
+              },
+            },
+          ],
+        };
+        // Industries chart options
+        const industriesOption = {
+          animation: false,
+          tooltip: {
+            trigger: "item",
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+            textStyle: {
+              color: "#1f2937",
+            },
+          },
+          legend: {
+            orient: "vertical",
+            right: 10,
+            top: "center",
+            textStyle: {
+              color: "#1f2937",
+            },
+          },
+          series: [
+            {
+              name: "Отрасли",
+              type: "pie",
+              radius: ["40%", "70%"],
+              center: ["40%", "50%"],
+              avoidLabelOverlap: false,
+              itemStyle: {
+                borderRadius: 6,
+                borderColor: "#fff",
+                borderWidth: 2,
+              },
+              label: {
+                show: false,
+              },
+              emphasis: {
+                label: {
+                  show: false,
+                },
+              },
+              labelLine: {
+                show: false,
+              },
+              data: [
+                {
+                  value: 35,
+                  name: "Производство",
+                  itemStyle: { color: "rgba(87, 181, 231, 1)" },
+                },
+                {
+                  value: 25,
+                  name: "Логистика",
+                  itemStyle: { color: "rgba(141, 211, 199, 1)" },
+                },
+                {
+                  value: 20,
+                  name: "Ритейл",
+                  itemStyle: { color: "rgba(251, 191, 114, 1)" },
+                },
+                {
+                  value: 15,
+                  name: "Строительство",
+                  itemStyle: { color: "rgba(252, 141, 98, 1)" },
+                },
+                { value: 5, name: "Другие", itemStyle: { color: "#d1d5db" } },
+              ],
+            },
+          ],
+        };
+        // Render charts
+        efficiencyChart.setOption(efficiencyOption);
+        industriesChart.setOption(industriesOption);
+        // Resize charts when window size changes
+        window.addEventListener("resize", function () {
+          efficiencyChart.resize();
+          industriesChart.resize();
+        });
+        // Shopping cart functionality
+        let cart = JSON.parse(localStorage.getItem("cart")) || [];
+        updateCartCount();
+        // Add to cart button from calculator
+        const addToCartCalculator = document.getElementById(
+          "add-to-cart-calculator"
+        );
+        addToCartCalculator.addEventListener("click", function () {
+          const selectedType = document.querySelector(
+            'input[name="automation-type"]:checked'
+          ).value;
+          const scale = projectScale.value;
+          const time = timeRange.value;
+          const integration = integrationSwitch.checked;
+          let serviceName = "";
+          let basePrice = 0;
+          switch (selectedType) {
+            case "production":
+              serviceName = "Автоматизация производства";
+              basePrice = 150000;
+              break;
+            case "building":
+              serviceName = "Автоматизация зданий";
+              basePrice = 120000;
+              break;
+            case "business":
+              serviceName = "Автоматизация бизнес-процессов";
+              basePrice = 90000;
+              break;
+            case "iot":
+              serviceName = "Промышленный IoT";
+              basePrice = 180000;
+              break;
+          }
+          // Adjust for project scale
+          if (scale === "medium") {
+            basePrice *= 1.5;
+            serviceName += " (средний масштаб)";
+          } else if (scale === "large") {
+            basePrice *= 2.5;
+            serviceName += " (крупный масштаб)";
+          } else {
+            serviceName += " (малый масштаб)";
+          }
+          // Calculate additional services
+          let additionalServices = [];
+          let additionalCost = 0;
+          document
+            .querySelectorAll(".additional-service")
+            .forEach((service) => {
+              if (service.checked) {
+                switch (service.value) {
+                  case "consulting":
+                    additionalServices.push("Консультация и аудит");
+                    additionalCost += 20000;
+                    break;
+                  case "training":
+                    additionalServices.push("Обучение персонала");
+                    additionalCost += 30000;
+                    break;
+                  case "support":
+                    additionalServices.push("Расширенная техподдержка");
+                    additionalCost += 50000;
+                    break;
+                }
+              }
+            });
+          // Add integration cost
+          if (integration) {
+            additionalServices.push("Интеграция с существующими системами");
+            additionalCost += 40000;
+          }
+          // Create service object
+          const service = {
+            id: Date.now(),
+            name: serviceName,
+            price: Math.round(basePrice) + additionalCost,
+            quantity: 1,
+            time: time + " мес.",
+            additionalServices: additionalServices,
+          };
+          // Add to cart
+          cart.push(service);
+          localStorage.setItem("cart", JSON.stringify(cart));
+          updateCartCount();
+          // Show notification
+          showNotification("Успешно", "Услуга добавлена в корзину");
+        });
+        // Update cart count
+        function updateCartCount() {
+          const cartCount = document.getElementById("cart-count");
+          cartCount.textContent = cart.length;
+        }
+        // Notification functionality
+        const notification = document.getElementById("notification");
+        const notificationTitle = document.getElementById("notification-title");
+        const notificationMessage = document.getElementById(
+          "notification-message"
+        );
+        const closeNotification = document.getElementById("close-notification");
+        closeNotification.addEventListener("click", function () {
+          hideNotification();
+        });
+        function showNotification(title, message) {
+          notificationTitle.textContent = title;
+          notificationMessage.textContent = message;
+          notification.classList.remove(
+            "hidden",
+            "translate-y-20",
+            "opacity-0"
+          );
+          notification.classList.add("translate-y-0", "opacity-100");
+          // Auto hide after 3 seconds
+          setTimeout(hideNotification, 3000);
+        }
+        function hideNotification() {
+          notification.classList.remove("translate-y-0", "opacity-100");
+          notification.classList.add("translate-y-20", "opacity-0");
+          setTimeout(() => {
+            notification.classList.add("hidden");
+          }, 300);
+        }
+      });
+    </script>
+  </body>
+</html>

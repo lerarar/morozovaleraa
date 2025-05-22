@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Личный кабинет - АвтоСистемс</title>
+    <script src="https://cdn.tailwindcss.com/3.4.16"></script>
+    <script>tailwind.config={theme:{extend:{colors:{primary:'#3b82f6',secondary:'#10b981'},borderRadius:{'none':'0px','sm':'4px',DEFAULT:'8px','md':'12px','lg':'16px','xl':'20px','2xl':'24px','3xl':'32px','full':'9999px','button':'8px'}}}}</script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.6.0/remixicon.min.css">
+    <style>
+        :where([class^="ri-"])::before { content: "\f3c2"; }
+        .account-tab.active {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: #3b82f6;
+            border-left: 3px solid #3b82f6;
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+  <header class="bg-white shadow-sm sticky top-0 z-50">
+    <div class="container mx-auto px-4 py-3">
+    <div class="flex justify-between items-center">
+    <a href="index.html" class="flex items-center space-x-2">
+    <div class="w-10 h-10 bg-primary rounded-full flex items-center justify-center">
+    <span class="text-white font-['Pacifico'] text-xl">AS</span>
+    </div>
+    <span class="font-['Pacifico'] text-2xl text-primary">АвтоСистемс</span>
+    </a>
+    <nav class="hidden md:flex space-x-8">
+    <a href="index.html" class="text-gray-800 font-medium hover:text-primary transition-colors">Главная</a>
+    <a href="catalog.html" class="text-gray-800 font-medium hover:text-primary transition-colors">Услуги</a>
+    <a href="#" class="text-gray-800 font-medium hover:text-primary transition-colors">О компании</a>
+    <a href="#" class="text-gray-800 font-medium hover:text-primary transition-colors">Проекты</a>
+    <a href="#" class="text-gray-800 font-medium hover:text-primary transition-colors">Контакты</a>
+    </nav>
+    <div class="flex items-center space-x-6">
+    <a href="account.html" class="text-gray-700 hover:text-primary transition-colors">
+    <div class="w-6 h-6 flex items-center justify-center">
+    <i class="ri-user-3-line text-xl"></i>
+    </div>
+    </a>
+    <div class="relative hidden md:block">
+    <input type="text" placeholder="Поиск..." class="pl-10 pr-4 py-2 rounded-full text-sm border border-gray-200 focus:outline-none focus:border-primary">
+    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+    <i class="ri-search-line"></i>
+    </div>
+    </div>
+    <a href="cart.html" class="relative p-2 text-gray-700 hover:text-primary transition-colors">
+    <div class="w-6 h-6 flex items-center justify-center">
+    <i class="ri-shopping-cart-2-line text-xl"></i>
+    </div>
+    <span id="cart-count" class="absolute -top-1 -right-1 bg-primary text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
+    </a>
+    <button class="md:hidden p-2 text-gray-700" id="mobile-menu-button">
+    <div class="w-6 h-6 flex items-center justify-center">
+    <i class="ri-menu-line text-xl"></i>
+    </div>
+    </button>
+    </div>
+    </div>
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="md:hidden hidden py-4 border-t mt-3">
+    <div class="flex flex-col space-y-3">
+    <a href="index.html" class="text-gray-800 font-medium hover:text-primary transition-colors">Главная</a>
+    <a href="catalog.html" class="text-gray-800 font-medium hover:text-primary transition-colors">Услуги</a>
+    <a href="#" class="text-gray-800 font-medium hover:text-primary transition-colors">О компании</a>
+    <a href="#" class="text-gray-800 font-medium hover:text-primary transition-colors">Проекты</a>
+    <a href="#" class="text-gray-800 font-medium hover:text-primary transition-colors">Контакты</a>
+    <a href="account.html" class="text-gray-800 font-medium hover:text-primary transition-colors">Личный кабинет</a>
+    </div>
+    <div class="mt-4 relative">
+    <input type="text" placeholder="Поиск..." class="w-full pl-10 pr-4 py-2 rounded-full text-sm border border-gray-200 focus:outline-none focus:border-primary">
+    <div class="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 flex items-center justify-center text-gray-400">
+    <i class="ri-search-line"></i>
+    </div>
+    </div>
+    </div>
+    </div>
+    </header>
+
+    <main class="container mx-auto px-4 py-8">
+        <div class="flex flex-col md:flex-row gap-8">
+            <!-- Боковое меню -->
+            <div class="w-full md:w-64 bg-white rounded shadow-sm">
+                <div class="p-6 border-b">
+                    <div class="flex items-center space-x-3">
+                        <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden">
+                            <i class="ri-user-3-line text-2xl text-gray-500"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-medium">Иванов Алексей</h3>
+                            <p class="text-sm text-gray-500">ООО "ТехноПром"</p>
+                        </div>
+                    </div>
+                </div>
+                <nav class="py-4">
+                    <a href="#" class="account-tab active flex items-center px-6 py-3 text-gray-700 hover:bg-gray-50 transition-colors">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-user-settings-line"></i>
+                        </div>
+                        <span>Личные данные</span>
+                    </a>
+                    <a href="#" class="account-tab flex items-center px-6 py-3 text-gray-700 hover:bg-gray-50 transition-colors">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-file-list-3-line"></i>
+                        </div>
+                        <span>История заказов</span>
+                    </a>
+                    <a href="#" class="account-tab flex items-center px-6 py-3 text-gray-700 hover:bg-gray-50 transition-colors">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-heart-line"></i>
+                        </div>
+                        <span>Избранное</span>
+                    </a>
+                    <a href="#" class="account-tab flex items-center px-6 py-3 text-gray-700 hover:bg-gray-50 transition-colors">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-settings-3-line"></i>
+                        </div>
+                        <span>Настройки</span>
+                    </a>
+                    <a href="#" class="account-tab flex items-center px-6 py-3 text-gray-700 hover:bg-gray-50 transition-colors">
+                        <div class="w-5 h-5 flex items-center justify-center mr-3">
+                            <i class="ri-logout-box-line"></i>
+                        </div>
+                        <span>Выход</span>
+                    </a>
+                </nav>
+            </div>
+            <!-- Основной контент -->
+            <div class="flex-1">
+                <div class="bg-white rounded shadow-sm p-6 md:p-8">
+                    <h2 class="text-2xl font-medium mb-6">Личные данные</h2>
+                    
+                    <form>
+                        <div class="mb-8 flex flex-col items-center sm:flex-row sm:items-start gap-6">
+                            <div class="w-24 h-24 bg-gray-100 rounded-full flex items-center justify-center overflow-hidden relative">
+                                <i class="ri-user-3-line text-4xl text-gray-500"></i>
+                                <input type="file" id="avatar" class="hidden">
+                                <label for="avatar" class="absolute inset-0 bg-black bg-opacity-0 hover:bg-opacity-20 flex items-center justify-center cursor-pointer transition-all">
+                                    <div class="w-8 h-8 bg-white rounded-full flex items-center justify-center opacity-0 hover:opacity-100">
+                                        <i class="ri-camera-line text-gray-700"></i>
+                                    </div>
+                                </label>
+                            </div>
+                            <div class="flex-1">
+                                <p class="text-sm text-gray-500 mb-2">Загрузите фото профиля (опционально)</p>
+                                <button type="button" class="text-primary text-sm font-medium !rounded-button whitespace-nowrap">Изменить фото</button>
+                            </div>
+                        </div>
+
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="lastName" class="block text-sm font-medium text-gray-700 mb-1">Фамилия</label>
+                                <input type="text" id="lastName" value="Иванов" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm">
+                            </div>
+                            <div>
+                                <label for="firstName" class="block text-sm font-medium text-gray-700 mb-1">Имя</label>
+                                <input type="text" id="firstName" value="Алексей" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm">
+                            </div>
+                            <div>
+                                <label for="middleName" class="block text-sm font-medium text-gray-700 mb-1">Отчество</label>
+                                <input type="text" id="middleName" value="Петрович" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm">
+                            </div>
+                            <div>
+                                <label for="email" class="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                <input type="email" id="email" value="ivanov@technoprom.ru" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm">
+                            </div>
+                            <div>
+                                <label for="phone" class="block text-sm font-medium text-gray-700 mb-1">Телефон</label>
+                                <input type="tel" id="phone" value="+7 (912) 345-67-89" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm">
+                            </div>
+                            <div>
+                                <label for="company" class="block text-sm font-medium text-gray-700 mb-1">Название компании</label>
+                                <input type="text" id="company" value="ООО &quot;ТехноПром&quot;" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm">
+                            </div>
+                            <div class="md:col-span-2">
+                                <label for="address" class="block text-sm font-medium text-gray-700 mb-1">Адрес</label>
+                                <input type="text" id="address" value="г. Москва, ул. Промышленная, д. 12, офис 305" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm">
+                            </div>
+                        </div>
+
+                        <div class="mt-8 flex justify-end">
+                            <button type="submit" class="bg-primary text-white px-6 py-2 !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">Сохранить изменения</button>
+                        </div>
+                    </form>
+                </div>
+
+                <div class="bg-white rounded shadow-sm p-6 md:p-8 mt-8">
+                    <h2 class="text-2xl font-medium mb-6">Изменение пароля</h2>
+                    
+                    <form>
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                            <div>
+                                <label for="currentPassword" class="block text-sm font-medium text-gray-700 mb-1">Текущий пароль</label>
+                                <input type="password" id="currentPassword" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm">
+                            </div>
+                            <div class="md:col-span-2 border-t pt-4 mt-2"></div>
+                            <div>
+                                <label for="newPassword" class="block text-sm font-medium text-gray-700 mb-1">Новый пароль</label>
+                                <input type="password" id="newPassword" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm">
+                            </div>
+                            <div>
+                                <label for="confirmPassword" class="block text-sm font-medium text-gray-700 mb-1">Подтверждение пароля</label>
+                                <input type="password" id="confirmPassword" class="w-full px-4 py-2 border border-gray-300 rounded focus:outline-none focus:ring-1 focus:ring-primary focus:border-primary text-sm">
+                            </div>
+                        </div>
+
+                        <div class="mt-8 flex justify-end">
+                            <button type="submit" class="bg-primary text-white px-6 py-2 !rounded-button hover:bg-primary/90 transition-colors whitespace-nowrap">Изменить пароль</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="bg-gray-800 text-white mt-12">
+        <div class="container mx-auto px-4 py-12">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div>
+                    <div class="flex items-center space-x-2 mb-4">
+                        <div class="w-10 h-10 bg-white rounded-full flex items-center justify-center">
+                            <span class="text-primary font-['Pacifico'] text-xl">AS</span>
+                        </div>
+                        <span class="font-['Pacifico'] text-2xl text-white">АвтоСистемс</span>
+                    </div>
+                    <p class="text-gray-300 mb-4">Комплексные решения автоматизации для промышленных предприятий и бизнеса</p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors">
+                            <div class="w-8 h-8 flex items-center justify-center">
+                                <i class="ri-telegram-fill text-xl"></i>
+                            </div>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors">
+                            <div class="w-8 h-8 flex items-center justify-center">
+                                <i class="ri-vk-fill text-xl"></i>
+                            </div>
+                        </a>
+                        <a href="#" class="text-gray-300 hover:text-white transition-colors">
+                            <div class="w-8 h-8 flex items-center justify-center">
+                                <i class="ri-youtube-fill text-xl"></i>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium mb-4">Услуги</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Автоматизация производства</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Промышленные роботы</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Системы контроля</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Интеграция ERP</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Техническое обслуживание</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium mb-4">Информация</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">О компании</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Проекты</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Отзывы клиентов</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Блог</a></li>
+                        <li><a href="#" class="text-gray-300 hover:text-white transition-colors">Вакансии</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-medium mb-4">Контакты</h3>
+                    <ul class="space-y-3">
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                                <i class="ri-map-pin-line"></i>
+                            </div>
+                            <span class="text-gray-300">г. Москва, ул. Промышленная, д. 12</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                                <i class="ri-phone-line"></i>
+                            </div>
+                            <span class="text-gray-300">+7 (495) 123-45-67</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                                <i class="ri-mail-line"></i>
+                            </div>
+                            <span class="text-gray-300">info@autosystems.ru</span>
+                        </li>
+                        <li class="flex items-start">
+                            <div class="w-5 h-5 flex items-center justify-center mr-2 mt-0.5">
+                                <i class="ri-time-line"></i>
+                            </div>
+                            <span class="text-gray-300">Пн-Пт: 9:00 - 18:00</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-700 mt-10 pt-6 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">© 2025 АвтоСистемс. Все права защищены.</p>
+                <div class="flex space-x-4 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Политика конфиденциальности</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Условия использования</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Мобильное меню
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+        });
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Переключение вкладок в личном кабинете
+            const tabs = document.querySelectorAll('.account-tab');
+            
+            tabs.forEach(tab => {
+                tab.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Удаляем активный класс со всех вкладок
+                    tabs.forEach(t => t.classList.remove('active'));
+                    
+                    // Добавляем активный класс на текущую вкладку
+                    this.classList.add('active');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
